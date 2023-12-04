@@ -12,45 +12,57 @@ import {
   ProfileCardInfoContainer,
   ProfileCardInfoHeader,
 } from './styles'
+import { useCallback, useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+
+interface ProfileData {
+  name: string
+  html_url: string
+  bio: string
+  login: string
+  company: string
+  followers: number
+  avatar_url: string
+}
 
 export function ProfileCard() {
+  const [userData, setUserData] = useState<ProfileData>()
+
+  const fetchUserData = useCallback(async () => {
+    const response = await api.get('/users/CleiltonRocha')
+    setUserData(response.data)
+  }, [])
+
+  useEffect(() => {
+    fetchUserData()
+  }, [fetchUserData])
+
   return (
     <ProfileCardContainer>
-      <img
-        src="https://github.com/CleiltonRocha.png"
-        width={148}
-        height={148}
-        alt=""
-      />
+      <img src={userData?.avatar_url} width={148} height={148} alt="" />
       <ProfileCardInfoContainer>
         <ProfileCardInfoHeader>
-          <h1>Cleilton Rocha</h1>
-          <a href="#">
+          <h1>{userData?.name}</h1>
+          <a href={userData?.html_url}>
             <LinkContainer>
               <span>GITHUB</span>
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </LinkContainer>
           </a>
         </ProfileCardInfoHeader>
-        <p>
-          🔭 Front-end Developer and UI Designer at ETS Assessoria e Informática{' '}
-          <br />
-          📚 Graduating - Information Systems at Faculdade Tecnológica Lourenço
-          Filho - FLF (Jul 2024). <br />
-          🌱 Learning React, React-native, TypeScript, NextJS, NodeJS
-        </p>
+        <p>{userData?.bio}</p>
         <InfoContainer>
           <div>
             <FontAwesomeIcon icon={faGithub} />
-            <span>cleilton_rocha</span>
+            <span>{userData?.login}</span>
           </div>
           <div>
             <FontAwesomeIcon icon={faBuilding} />
-            <span>ETS Software</span>
+            <span>{userData?.company}</span>
           </div>
           <div>
             <FontAwesomeIcon icon={faUserGroup} />
-            <span>32 seguidores</span>
+            <span>{userData?.followers} seguidores</span>
           </div>
         </InfoContainer>
       </ProfileCardInfoContainer>
