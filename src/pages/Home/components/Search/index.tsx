@@ -1,27 +1,68 @@
 import { useContext } from 'react'
-import { SearchContainer } from './styles'
+import { Button, InputWrapperContainer, SearchContainer } from './styles'
 import { IssuesContext } from '../../../../contexts/IssuesContext'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { faX } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+const searchFormSchema = z.z.object({
+  query: z.string(),
+})
+
+type SearchFormInputs = z.infer<typeof searchFormSchema>
 
 export function Search() {
-  const { setSearchText, searchText } = useContext(IssuesContext)
+  const { fetchIssues, issues } = useContext(IssuesContext)
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<SearchFormInputs>({
+    resolver: zodResolver(searchFormSchema),
+  })
 
-  // function handleSearchTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-  //   setSearchText(event.target.value)
-  // }
+  async function handleSearchIssues(data: SearchFormInputs) {
+    await fetchIssues(data.query)
+  }
+
+  async function handleResetSearch() {
+    reset()
+    fetchIssues()
+  }
 
   return (
     <SearchContainer>
       <header>
         <h1>Publicações</h1>
-        <span>6 publicações</span>
+        <span>
+          {issues.length === 1
+            ? '1 Publicação'
+            : issues.length + ' Publicações'}
+        </span>
       </header>
-      <form>
-        <input
-          placeholder="Buscar Conteúdo"
-          type="text"
-          value={searchText}
-          onChange={handleSearchTextChange}
-        />
+      <form onSubmit={handleSubmit(handleSearchIssues)}>
+        <InputWrapperContainer>
+          <input
+            placeholder="Buscar Conteúdo"
+            type="text"
+            {...register('query')}
+          />
+          <Button variant="primary" type="submit" disabled={isSubmitting}>
+            Buscar
+          </Button>
+
+          <Button
+            variant="secondary"
+            onClick={handleResetSearch}
+            disabled={isSubmitting}
+          >
+            <FontAwesomeIcon icon={faX} />
+            Limpar Busca
+          </Button>
+        </InputWrapperContainer>
       </form>
     </SearchContainer>
   )

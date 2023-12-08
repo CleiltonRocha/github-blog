@@ -7,18 +7,23 @@ import {
 } from 'react'
 import { api } from '../lib/axios'
 
+interface IUser {
+  login: string
+}
 export interface Issues {
-  id: number
+  number: number
   title: string
   body: string
   created_at: string
+  html_url: string
+  comments: number
+  user: IUser
 }
 
 interface IssuesContextType {
   issues: Issues[]
   fetchIssues: (query?: string) => Promise<void>
-  searchText: string
-  setSearchText: (searchText: string) => void
+  isLoading: boolean
 }
 
 interface IssueProviderProps {
@@ -29,28 +34,27 @@ export const IssuesContext = createContext({} as IssuesContextType)
 
 export function IssuesProvider({ children }: IssueProviderProps) {
   const [issues, setIssues] = useState<Issues[]>([])
-  const [searchText, setSearchText] = useState<string>('')
+  const [isLoading, setIsLoading] = useState(true)
 
-  const fetchIssues = useCallback(async (q?: string) => {
-    const response = await api.get('/search/issues', {
-      params: {
-        q,
-      },
-    })
+  const fetchIssues = useCallback(async (q: string = '') => {
+    try {
+      setIsLoading(true)
+      const response = await api.get(
+        `/search/issues?q=${q}%20repo:CleiltonRocha/github-blog`,
+      )
 
-    setIssues(response.data.items)
+      setIssues(response.data.items)
+    } finally {
+      setIsLoading(false)
+    }
   }, [])
 
   useEffect(() => {
-    fetchIssues(
-      `${searchText}%20repo:rocketseat-education/reactjs-github-blog-challenge`,
-    )
-  }, [fetchIssues, searchText])
+    fetchIssues()
+  }, [fetchIssues])
 
   return (
-    <IssuesContext.Provider
-      value={{ issues, fetchIssues, setSearchText, searchText }}
-    >
+    <IssuesContext.Provider value={{ issues, fetchIssues, isLoading }}>
       {children}
     </IssuesContext.Provider>
   )

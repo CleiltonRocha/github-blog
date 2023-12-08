@@ -4,14 +4,15 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { PostCardContainer } from './styles'
 
 interface PostCardProps {
+  number: number
   title: string
   body: string
   createdAt: string
 }
 
-export function PostCard({ title, body, createdAt }: PostCardProps) {
+export function PostCard({ number, title, body, createdAt }: PostCardProps) {
   return (
-    <Link to="/post">
+    <Link to={`post/${number}`}>
       <PostCardContainer>
         <header>
           <h1>{title}</h1>
@@ -22,7 +23,7 @@ export function PostCard({ title, body, createdAt }: PostCardProps) {
             })}
           </span>
         </header>
-        <p>{body.slice(0, 200) + '...'}</p>
+        <p>{body?.slice(0, 200) + '...'}</p>
       </PostCardContainer>
     </Link>
   )

@@ -10,4 +10,19 @@ export const PostListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  position: relative;
+`
+
+export const EmptyStateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-bottom: 6.25rem;
+
+  color: ${(props) => props.theme.colors['base-text']};
+
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: (-50%, -50%);
 `

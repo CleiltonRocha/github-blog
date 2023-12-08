@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const PostInfoContainer = styled.div`
+export const PostInfoCardContainer = styled.div`
   max-width: 54rem;
   padding: 2rem 2.5rem 2rem;
   margin-top: -6rem;
@@ -71,17 +71,5 @@ export const PostInfoData = styled.div`
       color: ${(props) => props.theme.colors['base-label']};
       font-size: 1.125rem;
     }
-  }
-`
-
-export const PostContent = styled.div`
-  padding: 2.5rem 2rem;
-  max-width: 54rem;
-  margin: 0 auto;
-
-  p {
-    font-size: ${(props) => props.theme.textSizes['text-m']};
-    color: ${(props) => props.theme.colors['base-text']};
-    line-height: 160%;
   }
 `
