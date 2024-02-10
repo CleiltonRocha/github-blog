@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img src="https://github.com/CleiltonRocha/github-blog/assets/101843883/d9380f48-cf58-4c20-893b-c19d49ec0470" width="600px" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br><br>
 
-Currently, two official plugins are available:
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/CleiltonRocha/github-blog?color=blue&logo=TypeScript&logoColor=white&style=for-the-badge">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/CleiltonRocha/github-blog?color=blueviolet&style=for-the-badge">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<br>
 
-## Expanding the ESLint configuration
+<p align="center">
+  <a href="#sobre">Sobre</a> •
+  <a href="#instalação">Instalação</a> •
+  <a href="#tecnologias">Tecnologias</a> •
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Sobre
 
-- Configure the top-level `parserOptions` property like this:
+Desafio desenvolvido durante minha trajetória no curso Ignite para treinar os conceitos conexão com API's.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+O github blog é uma aplicação que busca issues de um repositório específico, permitindo buscas e visualização do mesmo, além de poder ver a issue através do próprio github.
+
+
+
+https://github.com/CleiltonRocha/github-blog/assets/101843883/0e7e43aa-8ed9-4094-8ee6-607eafce3469
+
+
+
+## Instalação
+
+```bash
+# Clone este repositório
+$ git clone git@github.com:CleiltonRocha/github-blog.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd github-blog
+
+# Instale as dependências
+$ npm install
+# Caso prefira usar o Yarn execute o comando abaixo
+$ yarn
+
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
+# Caso prefira usar o Yarn execute o comando abaixo
+$ yarn dev
+
+# O servidor inciará na porta 5173 - acesse <http://localhost:5173>
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tecnologias
+
+[![My Skills](https://skillicons.dev/icons?i=react,vite,ts)](https://skillicons.dev)
